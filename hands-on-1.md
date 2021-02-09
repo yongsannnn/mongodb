@@ -94,7 +94,7 @@ db.inspections.find({
     "address.city" : "NEW YORK" 
 },{}).pretty()
 ```
-```
+```show
 3.
 db.inspections.find({
     "address.city" : "NEW YORK" 
