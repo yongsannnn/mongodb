@@ -230,4 +230,119 @@ db.listingsAndReviews.find({
 }).limit(5).pretty()
 ```
 
-use $ne : value in criteria to show all that does not have 
+use $ne : value in criteria to show one value that does not have 
+"$ne" : "Happy" 
+use $nin : value in criteria to show ALL value that isn't inside, can use array.
+"$nin"  : ["Happy" ,"Sad"]
+
+
+### Compound Criteria
+
+Find all listing that are in Brazil or Canada
+``` 
+db.listingsAndReviews.find({
+    "$or" : [
+        {
+            "address.country" :"Brazil"
+        },
+        {
+            "address.country" : "Canada" 
+        }
+    ]
+}, {
+    "name": 1,
+    "address.country": 1
+}).pretty()
+``` 
+
+Find listing in Brazil or Canada, but if from Brazil need to have more than 4 beds. 
+
+db.listingsAndReviews.find({
+    "$or" : [
+        {
+            "address.country" :"Brazil",
+            "beds" :{
+                "$gt":4
+            }
+        },
+        {
+            "address.country" : "Canada" 
+        }
+    ]
+}, {
+    "name": 1,
+    "address.country": 1,
+    "beds" :1
+}).pretty()
+
+Find listing that are from either brazil or canada with beds grater than 4.
+```
+db.listingsAndReviews.find({
+    "$and" : [
+        {
+            "beds": {
+                "$gt" : 4
+            }
+        },
+        {
+            "or": [
+                {
+                    "address.country" : "Brazil"
+                },
+                {
+                    "address.country" : "Canada" 
+                }
+            ]
+        }
+    ]
+}, {
+    "name": 1,
+    "address.country":1,
+    "beds": 1
+}).pretty()
+```
+
+Find listings that are not from Brazil and not have more than 4 beds.
+``` 
+db.listingsAndReviews.find({
+
+
+},{
+    "name" :1,
+    "address.country":1,
+    "beds":1
+
+})
+
+
+### Select by ObjectId
+
+```
+db.restaurants.find({
+    "_id": ObjectId("sting of ID")  
+})
+```
+
+### Pattern search, case insensitive
+```
+db.restaurants.find({
+    "name" : {
+        "$regex": "steak",
+        "$options" : "i"
+        }
+},{
+    "name":1
+})
+```
+
+### Find by data
+``` 
+db.listingsAndReviews.find({
+    "last_review":{
+        "$lt" : new Date("2019-01-01")
+    }
+},{
+    "name":1,
+    "last_review":1
+}).pretty()
+```
