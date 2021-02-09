@@ -73,3 +73,41 @@ db.companies.find({
     "ipo.valuation_currency_code": 1
 }).pretty()
 ``` 
+
+Use the inspections collection from the sample_training database for the questions below
+1.Find all businesses which has violations issued
+2.Find all business which has violations, and are in the city of New York.
+3.Count how many businesses there in the city of New York
+4.Count how many businesses there are in the city of Ridgewood and does not have violations (hint: google for "not equal" in Mongo)
+
+
+```
+1. 
+db.inspections.find({
+    "result" : "Violation Issued"
+},{}).pretty()
+``` 
+```
+2.
+db.inspections.find({
+    "result" : "Violation Issued",
+    "address.city" : "NEW YORK" 
+},{}).pretty()
+```
+```
+3.
+db.inspections.find({
+    "address.city" : "NEW YORK" 
+},{}).count()
+
+ans; 18279
+```
+```
+4.
+db.inspections.find({
+    "address.city" : "Ridgewood",
+    "result": "No Violation Issued" 
+},{}).count()
+
+ans: 11
+```
