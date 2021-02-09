@@ -126,3 +126,52 @@ db.listingsAndReviews.find({
     "bedrooms":1,
 }).pretty()
 ```
+
+
+### Find by Inequality
+When there is a $, it means special. $gt means greater than. $gte means greater than equal to
+```
+db.listingsAndReviews.find({
+    "beds": {
+        "$gt": 3
+    }
+},{
+    "name":1,
+    "beds":1
+})
+```
+
+* Find all listing that have 3 or more beds $gte
+```
+db.listingsAndReviews.find({
+    "beds": {
+        "$gte": 3
+    }
+},{
+    "name":1,
+    "beds":1
+})
+```
+
+* Find all listings that have less than 6 beds $lt
+```
+db.listingsAndReviews.find({
+    "beds": {
+        "$lt": 6
+    }
+},{
+    "name":1,
+    "beds":1
+})
+```
+
+* Find all listings that have 3 to 6 beds using multiple Inequality.
+db.listingsAndReviews.find({
+    "beds": {
+        "$gte": 3,
+        "$lt": 6
+    }
+},{
+    "name":1,
+    "beds":1
+})
