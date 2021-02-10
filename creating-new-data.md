@@ -151,3 +151,62 @@ db.animals.update({
     }
 })
 ```
+
+### Updating an Key in sub document.
+Updating Dr name
+Take note how referencing of the key to target in the subdocument.
+```
+db.animals.update({
+    "_id" : ObjectId("60235930b7dc9b5748b6a198"),
+},{
+    "$set":{
+        "vet.name" : "Dr Jay Tan"
+    }
+})
+```
+
+### Updating a specific object in an array
+Assume that cookie has a list of checkups that it has attended
+
+```
+db.animals.update({
+    "_id" : ObjectId("60235930b7dc9b5748b6a198"),
+},{
+    "$set":{
+        "checkups" : [
+            {
+                "_id" : ObjectId(),
+                "diagnosis" : "Flu",
+                "treatment" : "Medicine"
+            },
+            {
+                "_id" : ObjectId(),
+                "diagnosis" : "Coughing",
+                "treatment" : "Cough Syrup"
+            },
+            {
+                "_id" : ObjectId(),
+                "diagnosis" : "Fever",
+                "treatment" : "Jab"
+            }
+        ]
+    }
+})
+```
+
+### Update check up 2nd diagnosis to something else. 
+Update the document, that inside has a checkup array and it's id is as mentioned. 
+```
+db.animals.update({
+    "checkups" : {
+        "$elemMatch" : {
+             "_id" : ObjectId("60235c77b7dc9b5748b6a19a")
+        }
+    }
+},{
+    "$set":{
+        "checkups.$.diagnosis" : "Skin itch",
+        "checkups.$.treatment" : "Anti-itch cream"
+    }
+})
+```

@@ -52,3 +52,83 @@ db.students.insertMany([
     }
 ])
 ```
+
+
+
+1.Add in the following pets:
+Name: Jorden,
+Age: 15
+Breed: Golden Retriever
+Species: dog
+
+
+Name: Dash
+Age: 3
+Breed: Hamster
+Species: Hamster
+
+
+Name: Carrot
+Age: 1.5
+Breed: Australian Dwarf
+Species: Rabbit
+
+Q1
+```
+db.animals.insertMany([
+    {
+        "name" : "Jorden",
+        "age" : 15,
+        "breed" : "Golden Retriever",
+        "species" : "Dog"
+    },
+    {
+        "name" : "Dash",
+        "age" : 3,
+        "breed" : "Hamster",
+        "species": "Hamster"
+    },
+    {
+        "name" : "Carrot",
+        "age" : 1.5,
+        "breed" : "Australian Dwarf",
+        "species" : "Rabbit"
+    }
+])
+```
+
+Q2 Change Carrot Age to 2.5
+```
+db.animals.update({
+    "_id" : ObjectId("60235fafb7dc9b5748b6a19e"),
+},{
+    "$set" : {
+        "age" : 2.5
+    }
+})
+```
+
+Q3
+Replace Dash the hamster's information (using the PUT method) with the following:
+Name: Dash
+Age: 4.5
+Breed: Winter White
+Species: Hamster
+
+```
+db.animals.update({
+    "_id" : ObjectId("60235fafb7dc9b5748b6a19d")
+},{
+    "name" : "Dash",
+    "age" : 4.5,
+    "breed" : "Winter White",
+    "species" : "Hamster"
+})
+```
+
+Q4 Delete Jorden, because it went to the rainbow bridge due to old age.
+```
+db.animals.remove({
+    "_id" : ObjectId("60235fafb7dc9b5748b6a19c")
+})
+```
