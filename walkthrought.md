@@ -301,6 +301,24 @@ db.listingsAndReviews.find({
     "beds": 1
 }).pretty()
 ```
+```
+db.listingsAndReviews.find({
+    'address.country': {
+        '$not': {
+            $in:['Brazil', 'Canada']
+        }
+    },
+    'beds': {
+        '$not' : {
+            '$gt':4
+        }
+    }
+}, {
+    'name': 1,
+    'address.country': 1,
+    'beds': 1
+}).pretty()
+```
 
 Find listings that are not from Brazil and not have more than 4 beds.
 ``` 
@@ -335,7 +353,7 @@ db.restaurants.find({
 })
 ```
 
-### Find by data
+### Find by date
 ``` 
 db.listingsAndReviews.find({
     "last_review":{

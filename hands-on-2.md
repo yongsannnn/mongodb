@@ -79,7 +79,3 @@ db.accounts.find({
     "products":1
 }).pretty()
 ```
-
-
-
-
