@@ -97,3 +97,57 @@ db.students.updateMany({
 db.students.remove({
     "_id": ObjectId("60234c45b7dc9b5748b6a197"),
 })
+
+
+## Manage sub-documents
+How to add something into an array.
+Inserting an animal with an array first.
+```
+db.animals.insert({
+    "name" : "Cookie",
+    "age" : 1,
+    "breed" : "Baegle",
+    "species" : "Dog",
+    "tags" : ["Playful", "Energetic", "Young"] 
+})
+```
+
+### Push to the back of the tags array for Cookie
+```
+db.animals.update({
+    "_id" : ObjectId("60235930b7dc9b5748b6a198"),
+},{
+    "$push": {
+        "tags" : "Good with kids"
+    }
+})
+```
+
+### Remove specific item from an array
+
+```
+db.animals.update({
+    "_id" : ObjectId("60235930b7dc9b5748b6a198"),
+},{
+    "$pull": {
+        "tags" : "Young"
+    }
+})
+```
+
+### Updating sub-documents
+Adding a sub document to cookie first
+using $set
+```
+db.animals.update({
+    "_id" : ObjectId("60235930b7dc9b5748b6a198"),
+},{
+    "$set":{
+        "vet": {
+            "name" : "Dr Jay Lim",
+            "contact" : 81238123,
+            "address" : "Clementi Ave 1"
+        }
+    }
+})
+```
