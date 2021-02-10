@@ -53,3 +53,57 @@ db.students.insertMany([
 ])
 ```
 
+## Update an exisiting documents
+
+### Update a document by its object id
+
+#### "Prestige Method" aka PUT
+Kill the old one, update a new one.
+Replace entire document, but same identity. Keep old ID.
+First object is the criteria object.
+Second object is the data that you want to upload.
+
+```
+db.students.update({
+    "_id" : ObjectId("60234c45b7dc9b5748b6a196")
+},{
+    "name" : "James Verses",
+    "age" : 15,
+    "subjects": ["Transfiguration","Alchemy"],
+    "date_enrolled": new Date("2015-06-15")
+})
+```
+
+#### "Patch Method"
+Only change the part that you want to change
+By using $set you can update the KEYS of the document. 
+```
+db.students.update({
+    "_id" : ObjectId("60234c45b7dc9b5748b6a196"),
+},{
+    "$set" : {
+        "age" : 16
+    }
+})
+```
+
+### Update Many
+Update all the students whose age 13 or higher with a FYP true. 
+```
+db.students.updateMany({
+    "age" : {
+        "$gte" : 13
+    }
+},{
+    "$set" : {
+        "fyp" : true
+    }
+})
+
+```
+
+
+### Delete
+db.students.remove({
+    "_id": ObjectId("60234c45b7dc9b5748b6a197"),
+})
